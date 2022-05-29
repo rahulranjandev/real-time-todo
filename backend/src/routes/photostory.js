@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const router = Router();
 
-import PhotoStory from "./../controller/PhotoStory.js";
+import PhotoStory from "./../controller/photostory.js";
 
 import upload from "./../utlis/upload.js";
 

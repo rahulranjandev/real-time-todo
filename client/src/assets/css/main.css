@@ -7,18 +7,16 @@ body {
 
 .banner {
   background-color: #fafafa;
-  height: 100vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* flex-direction: column; */
 }
 
 .banner__container {
   width: 100%;
   max-width: 1200px;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
 }
@@ -56,9 +54,5 @@ header {
 
 .box {
   height: 400px;
-  /* margin-inline: auto; */
-  /* margin: 0 auto; */
   width: 500px;
-  /* width: 200px; */
-  /* background: #000; */
 }

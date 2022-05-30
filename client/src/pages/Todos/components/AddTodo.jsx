@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { Grid, Button, Input, Form } from "semantic-ui-react";
+
 function AddTodo({ onAdd }) {
   const [value, setValue] = useState("");
 
@@ -17,10 +19,32 @@ function AddTodo({ onAdd }) {
 
   return (
     <div className="todo-add">
-      <input type="text" name="title" value={value} onChange={handleChange} />
-      <button type="button" onClick={handleOnAdd}>
-        Add
-      </button>
+      <br />
+      <Grid textAlign="center">
+        <Grid.Row>
+          <Form className="todo-add-form">
+            <Form.Group>
+              <Form.Field
+                inline
+                focus
+                control={Input}
+                type="text"
+                placeholder="Enter Todo"
+                value={value}
+                onChange={handleChange}
+              />
+              <Form.Field
+                inline
+                color="green"
+                control={Button}
+                type="button"
+                content="Add"
+                onClick={handleOnAdd}
+              />
+            </Form.Group>
+          </Form>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 }

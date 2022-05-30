@@ -1,7 +1,10 @@
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 
 import TodoList from "./components/TodoList";
 import AddTodo from "./components/AddTodo";
+
+import { Container, Segment, Divider, Header, Button } from "semantic-ui-react";
 
 import io from "socket.io-client";
 
@@ -115,14 +118,28 @@ function Todo() {
   return (
     <div className="todo-app">
       <div className="header">
-        <h1>Real Time TodoApp</h1>
-
-        <p>Connected: {"" + isConnected}</p>
-        <button onClick={getLatestTodos}>Get Latest Todos</button>
+        <Container fluid textAlign="center">
+          <Header as="h1" block>
+            Real Time Todo App
+          </Header>
+        </Container>
       </div>
-
-      <AddTodo onAdd={onAdd} />
-      <TodoList data={state} onCompleted={onCompleted} onDelete={onDelete} />
+      <div className="content">
+        <Segment basic textAlign="center">
+          <Header as="h3">Connected : {"" + isConnected}</Header>
+          <Button>
+            <a href="/banners">Upload Image</a>
+          </Button>
+          <Button onClick={getLatestTodos}>Get Latest Todos</Button>
+          <AddTodo onAdd={onAdd} />
+          <Divider horizontal>Todo List</Divider>
+          <TodoList
+            data={state}
+            onCompleted={onCompleted}
+            onDelete={onDelete}
+          />
+        </Segment>
+      </div>
     </div>
   );
 }

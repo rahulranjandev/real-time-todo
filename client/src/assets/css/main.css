@@ -37,3 +37,28 @@ body {
   width: 256px;
   margin-bottom: 32px;
 }
+
+header {
+  padding: 10;
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 32px;
+}
+
+.todo-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  height: 400px;
+  /* margin-inline: auto; */
+  /* margin: 0 auto; */
+  width: 500px;
+  /* width: 200px; */
+  /* background: #000; */
+}

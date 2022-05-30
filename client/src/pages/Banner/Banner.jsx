@@ -2,6 +2,15 @@ import { useState, useEffect } from "react";
 
 import { getBanners, updateBanner } from "./../../services/banner";
 
+import {
+  Grid,
+  Segment,
+  Divider,
+  Header,
+  Button,
+  Form,
+} from "semantic-ui-react";
+
 // const host = "http://localhost:3000";
 
 function Banner() {
@@ -52,6 +61,9 @@ function Banner() {
 
   return (
     <div className="container">
+      <Header as="h1" block textAlign="center">
+        Multi Image Upload
+      </Header>
       <div className="banner">
         <div className="banner__container">
           {banners.map((banner, index) => {
@@ -63,27 +75,23 @@ function Banner() {
           })}
         </div>
       </div>
-      <hr />
-
-      <h3>Upload Banners</h3>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="banner">Banner</label>
-          <input
-            type="file"
-            multiple
-            className="form-control"
-            id="banner"
-            name="banner"
-            placeholder="Banner"
-          />
-
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </div>
-      </form>
+      <Segment basic textAlign="center">
+        <Divider horizontal>Upload Banner</Divider>
+      </Segment>
+      <Grid textAlign="center">
+        <Grid.Row>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Field>
+                <input type="file" multiple name="banner" placeholder="Image" />
+              </Form.Field>
+              <Button type="submit" color="blue">
+                Upload
+              </Button>
+            </Form.Group>
+          </Form>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 }

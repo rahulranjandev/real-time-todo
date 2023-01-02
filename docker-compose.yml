@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  real-time-todo-api:
+    build:
+      context: .
+    container_name: real-time-api-server
+    image: real-time-api-server
+    restart: unless-stopped
+    env_file:
+      - .env
+
+    networks:
+      - app-network
+    ports:
+      - '8080:3000'
+
+networks:
+  app-network:
+    driver: bridge

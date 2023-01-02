@@ -18,6 +18,9 @@ if (!AZURE_STORAGE_CONNECTION_STRING) {
 }
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
+
+console.log(`NODE_ENV: ${NODE_ENV}`);
+
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -29,7 +32,9 @@ const app = express();
 
 const httpServer = createServer(app);
 
-if (NODE_ENV === 'development') app.use(morgan('dev'));
+if (NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
+}
 
 app.use(cors());
 

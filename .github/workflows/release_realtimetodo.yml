@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://ghcr.io///
-        username: ${{ secrets.AzureAppService_ContainerUsername_cb286e18f1dc4a9897e7b8bb01407170 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_3285630248b84d0c922659aa27bc538d }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_f10d51b0242e4aa8ab69e56444d98a32 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_42fee36a67804ee5b9cc7ce5782207fb }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ghcr.io///${{ secrets.AzureAppService_ContainerUsername_cb286e18f1dc4a9897e7b8bb01407170 }}/rahulranjan937/real-time-todo:${{ github.sha }}
+        tags: ghcr.io///${{ secrets.AzureAppService_ContainerUsername_f10d51b0242e4aa8ab69e56444d98a32 }}/real-time-todo:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'realtimetodo'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b622803cfa064ccba918b96a7bd8185e }}
-        images: 'ghcr.io///${{ secrets.AzureAppService_ContainerUsername_cb286e18f1dc4a9897e7b8bb01407170 }}/rahulranjan937/real-time-todo:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d134c66216254248884357994f8cd3bc }}
+        images: 'ghcr.io///${{ secrets.AzureAppService_ContainerUsername_f10d51b0242e4aa8ab69e56444d98a32 }}/real-time-todo:${{ github.sha }}'

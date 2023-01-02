@@ -1,5 +1,5 @@
 {
-  "name": "nodejs_rest_api_boilerplate",
+  "name": "realtime-todo-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "type": "module",
   "keywords": [],
-  "author": "",
+  "author": "Rahul Ranjan",
   "license": "ISC",
   "dependencies": {
     "@azure/storage-blob": "^12.10.0",

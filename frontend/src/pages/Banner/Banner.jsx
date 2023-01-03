@@ -1,17 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { Grid, Segment, Divider, Header, Button, Form, Progress } from 'semantic-ui-react';
 
-import { getBanners, updateBanner } from "./../../services/banner";
-
-import {
-  Grid,
-  Segment,
-  Divider,
-  Header,
-  Button,
-  Form,
-} from "semantic-ui-react";
-
-// const host = "http://localhost:3000";
+import { getBanners, updateBanner } from '../../services/banner';
 
 function Banner() {
   const [banners, setBanners] = useState([]);
@@ -43,7 +33,9 @@ function Banner() {
     updateBanner(formData)
       .then((res) => {
         console.log(res);
+
         const resp = res.data;
+
         asyncGetBanners();
       })
       .catch((err) => {
@@ -52,11 +44,25 @@ function Banner() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container">
+        <Progress percent={100} indicating>
+          {' '}
+          Loading...{' '}
+        </Progress>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error...</div>;
+    return (
+      <div className="container">
+        <Progress percent={100} indicating>
+          {' '}
+          Error...{' '}
+        </Progress>
+      </div>
+    );
   }
 
   return (
@@ -95,4 +101,5 @@ function Banner() {
     </div>
   );
 }
+
 export default Banner;

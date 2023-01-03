@@ -1,10 +1,10 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from 'react-router-dom';
 
-import "./assets/css/main.css";
+import './assets/css/main.css';
 
-import Todos from "./pages/Todos";
+import Todos from './pages/Todos';
 
-import Banners from "./pages/Banner";
+import Banners from './pages/Banner';
 
 function NotFound() {
   return (

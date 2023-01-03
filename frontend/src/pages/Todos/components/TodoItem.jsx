@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Button, Form, Input } from "semantic-ui-react";
+import { Button, Form, Input } from 'semantic-ui-react';
 
 function TodoItem({ todo, onCompleted, onDelete }) {
   if (todo.isCompleted) {

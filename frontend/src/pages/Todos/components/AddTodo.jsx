@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Grid, Button, Input, Form } from "semantic-ui-react";
+import { Grid, Button, Input, Form } from 'semantic-ui-react';
 
 function AddTodo({ onAdd }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const handleChange = (e) => {
     const val = e.target.value;
@@ -13,7 +13,7 @@ function AddTodo({ onAdd }) {
   const handleOnAdd = () => {
     if (value) {
       onAdd(value);
-      setValue("");
+      setValue('');
     }
   };
 
@@ -33,14 +33,7 @@ function AddTodo({ onAdd }) {
                 value={value}
                 onChange={handleChange}
               />
-              <Form.Field
-                inline
-                color="green"
-                control={Button}
-                type="button"
-                content="Add"
-                onClick={handleOnAdd}
-              />
+              <Form.Field inline color="green" control={Button} type="button" content="Add" onClick={handleOnAdd} />
             </Form.Group>
           </Form>
         </Grid.Row>

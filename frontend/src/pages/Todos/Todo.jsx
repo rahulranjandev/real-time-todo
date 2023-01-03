@@ -1,12 +1,10 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React from 'react';
+import io from 'socket.io-client';
+import { useState, useEffect, useRef } from 'react';
+import { Container, Segment, Divider, Header, Button } from 'semantic-ui-react';
 
-import TodoList from "./components/TodoList";
-import AddTodo from "./components/AddTodo";
-
-import { Container, Segment, Divider, Header, Button } from "semantic-ui-react";
-
-import io from "socket.io-client";
+import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
 
 const host = process.env.REACT_APP_SOCKET_HOST;
 
@@ -20,26 +18,26 @@ function Todo() {
   const [isConnected, setIsConnected] = useState(socket.connected);
 
   useEffect(() => {
-    socket.on("connect", () => {
+    socket.on('connect', () => {
       setIsConnected(true);
     });
-    socket.on("disconnect", () => {
+    socket.on('disconnect', () => {
       setIsConnected(false);
     });
-    socket.emit("todo:list");
+    socket.emit('todo:list');
 
-    socket.on("todo:list", (data) => {
+    socket.on('todo:list', (data) => {
       setState(data);
       prevTodos.current = data;
     });
 
-    socket.on("todo:created", (todo) => {
+    socket.on('todo:created', (todo) => {
       const data = [...prevTodos.current, todo];
       setState(data);
       prevTodos.current = data;
     });
 
-    socket.on("todo:updated", (todo) => {
+    socket.on('todo:updated', (todo) => {
       const newState = prevTodos.current.map((e) => {
         if (e.id === todo.id) {
           return todo;
@@ -51,25 +49,25 @@ function Todo() {
       prevTodos.current = newState;
     });
 
-    socket.on("todo:deleted", (id) => {
+    socket.on('todo:deleted', (id) => {
       const newState = prevTodos.current.filter((e) => e.id !== id);
       setState(newState);
       prevTodos.current = newState;
     });
 
     return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("todo:list");
-      socket.off("todo:created");
-      socket.off("todo:updated");
-      socket.off("todo:deleted");
+      socket.off('connect');
+      socket.off('disconnect');
+      socket.off('todo:list');
+      socket.off('todo:created');
+      socket.off('todo:updated');
+      socket.off('todo:deleted');
       socket.disconnect();
     };
   }, []);
 
   const getLatestTodos = () => {
-    socket.emit("todo:list");
+    socket.emit('todo:list');
   };
 
   const onAdd = (name) => {
@@ -78,7 +76,7 @@ function Todo() {
       isCompleted: false,
     };
 
-    socket.emit("todo:create", payload);
+    socket.emit('todo:create', payload);
     // socket.emit("todo:list");
 
     // const data = [...prevTodos.current, payload];
@@ -96,7 +94,7 @@ function Todo() {
           isCompleted: val,
         };
 
-        socket.emit("todo:update", updateTodoTemp);
+        socket.emit('todo:update', updateTodoTemp);
 
         return updateTodoTemp;
       } else {
@@ -110,7 +108,7 @@ function Todo() {
 
   const onDelete = (id) => {
     const itemList = state.filter((e) => e.id !== id);
-    socket.emit("todo:delete", id);
+    socket.emit('todo:delete', id);
     setState(itemList);
     prevTodos.current = itemList;
   };
@@ -126,18 +124,14 @@ function Todo() {
       </div>
       <div className="content">
         <Segment basic textAlign="center">
-          <Header as="h3">Connected : {"" + isConnected}</Header>
+          <Header as="h3">Connected : {'' + isConnected}</Header>
           <Button>
             <a href="/banners">Upload Image</a>
           </Button>
           <Button onClick={getLatestTodos}>Get Latest Todos</Button>
           <AddTodo onAdd={onAdd} />
           <Divider horizontal>Todo List</Divider>
-          <TodoList
-            data={state}
-            onCompleted={onCompleted}
-            onDelete={onDelete}
-          />
+          <TodoList data={state} onCompleted={onCompleted} onDelete={onDelete} />
         </Segment>
       </div>
     </div>

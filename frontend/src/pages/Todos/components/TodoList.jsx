@@ -1,6 +1,6 @@
-import TodoItem from "./TodoItem";
+import TodoItem from './TodoItem';
 
-import { Grid } from "semantic-ui-react";
+import { Grid } from 'semantic-ui-react';
 
 function TodoList({ data, onCompleted, onDelete }) {
   return (
@@ -9,11 +9,7 @@ function TodoList({ data, onCompleted, onDelete }) {
         <Grid textAlign="center">
           {data.map((todo) => (
             <Grid.Row textAlign="center" key={todo.id}>
-              <TodoItem
-                todo={todo}
-                onCompleted={onCompleted}
-                onDelete={onDelete}
-              />
+              <TodoItem todo={todo} onCompleted={onCompleted} onDelete={onDelete} />
             </Grid.Row>
           ))}
         </Grid>

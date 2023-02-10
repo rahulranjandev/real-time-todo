@@ -6,7 +6,7 @@ name: Create and publish a Docker image
 
 on:
   push:
-    branches: ['backend']
+    branches: ['release']
   workflow_dispatch:
 
 env:

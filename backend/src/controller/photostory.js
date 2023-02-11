@@ -1,10 +1,7 @@
-import { request, response } from "express";
-
-import PhotoStory from "../model/photostory.js";
-
-import { BlobServiceClient } from "@azure/storage-blob";
-
-import { AZURE_STORAGE_CONNECTION_STRING } from "../app.js";
+import { request, response } from 'express';
+import { BlobServiceClient } from '@azure/storage-blob';
+import PhotoStory from '../model/photostory.js';
+import { AZURE_STORAGE_CONNECTION_STRING } from '../app.js';
 
 /**
  * @param {request} req req1
@@ -15,11 +12,9 @@ const list = async (req, res) => {
     const photos = await PhotoStory.findOne();
 
     // Create the BlobServiceClient object which will be used to create a container client
-    const blobServiceClient = BlobServiceClient.fromConnectionString(
-      AZURE_STORAGE_CONNECTION_STRING
-    );
+    const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
 
-    const containerClient = blobServiceClient.getContainerClient("photos");
+    const containerClient = blobServiceClient.getContainerClient('photos');
 
     let photosList = [];
 
@@ -30,7 +25,7 @@ const list = async (req, res) => {
 
       const url = await blockBlobClient.generateSasUrl({
         expiresOn: expire,
-        permissions: "r",
+        permissions: 'r',
       });
 
       photosList.push(url);
@@ -44,15 +39,13 @@ const list = async (req, res) => {
     };
 
     res.json({
-      status: "list",
+      status: 'list',
       // total,
       data: data,
     });
-  } catch (error) {
-    res.json({
-      status: false,
-      message: error.message,
-    });
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+    console.error(err.message);
   }
 };
 
@@ -68,18 +61,14 @@ const uploads = async (req, res) => {
 
     let photos = [];
 
-    const blobServiceClient = BlobServiceClient.fromConnectionString(
-      AZURE_STORAGE_CONNECTION_STRING
-    );
+    const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
 
-    const containerClient = blobServiceClient.getContainerClient("photos");
+    const containerClient = blobServiceClient.getContainerClient('photos');
 
     const uploadPromises = files.map(async (file) => {
       const data = file.buffer;
 
-      const blockBlobClient = containerClient.getBlockBlobClient(
-        file.originalname
-      );
+      const blockBlobClient = containerClient.getBlockBlobClient(file.originalname);
       const uploadBlobResponse = await blockBlobClient.upload(data, file.size);
 
       photos.push(file.originalname);
@@ -90,15 +79,13 @@ const uploads = async (req, res) => {
     updatedDoc.photos = photos;
     await updatedDoc.save();
 
-    res.json({
-      status: "list",
+    res.status(200).json({
+      status: true,
       data: updatedDoc,
     });
-  } catch (error) {
-    res.json({
-      status: false,
-      message: error.message,
-    });
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+    console.error(err.message);
   }
 };
 

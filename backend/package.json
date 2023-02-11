@@ -1,30 +1,29 @@
 {
-  "name": "nodejs_rest_api_boilerplate",
+  "name": "realtime-todo-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon --watch src src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --watch src src/app.js"
   },
   "type": "module",
   "keywords": [],
-  "author": "",
+  "author": "Rahul Ranjan",
   "license": "ISC",
   "dependencies": {
-    "@azure/storage-blob": "^12.10.0",
-    "bcrypt": "^5.0.1",
+    "@azure/storage-blob": "^12.12.0",
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
-    "date-fns": "^2.28.0",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "mongoose": "^6.3.4",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
-    "socket.io": "^4.5.1"
+    "socket.io": "^4.5.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.20"
   }
 }

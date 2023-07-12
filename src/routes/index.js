@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Router } from 'express';
 
 const router = Router();
 
-import photostory from "./photostory.js";
-import todo from "./todos.js";
+import photostory from './photostory.js';
+import todo from './todos.js';
 
-router.use("/photostory", photostory);
-router.use("/todos", todo);
+router.use('/photostory', photostory);
+router.use('/todos', todo);
 
 export default router;

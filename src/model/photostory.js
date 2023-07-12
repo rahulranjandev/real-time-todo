@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const PhotoStorySchema = mongoose.Schema({
   photos: [
@@ -13,6 +13,6 @@ const PhotoStorySchema = mongoose.Schema({
   },
 });
 
-const PhotoStory = mongoose.model("PhotoStory", PhotoStorySchema);
+const PhotoStory = mongoose.model('PhotoStory', PhotoStorySchema);
 
 export default PhotoStory;

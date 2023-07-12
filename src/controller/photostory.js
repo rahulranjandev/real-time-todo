@@ -91,6 +91,8 @@ const uploads = async (req, res) => {
 
 const newPhotoStory = async (req, res) => {
   try {
+    const updatedPhotoStory = await PhotoStory.findOne();
+
     const files = req.files;
     const containerName = 'images';
 
@@ -100,7 +102,7 @@ const newPhotoStory = async (req, res) => {
 
     await containerClient.createIfNotExists();
 
-    const imageUrls = [];
+    let imageUrls = [];
 
     const uploadPromises = files.map(async (file) => {
       const blobName = file.originalname;
@@ -116,17 +118,12 @@ const newPhotoStory = async (req, res) => {
 
     await Promise.all(uploadPromises);
 
-    const payload = {
-      caption: req.body.caption,
-      user: res.locals.user.id,
-      imageUrls: imageUrls,
-    };
-
-    const post = await this.postService.createPost(payload);
+    updatedPhotoStory.photos = imageUrls;
+    await updatedPhotoStory.save();
 
     res.status(201).json({
       status: 'success',
-      data: post,
+      data: updatedPhotoStory,
     });
   } catch (err) {
     res.status(500).send('Internal Server Error');

@@ -6,6 +6,6 @@ import PhotoStory from './../controller/photostory.js';
 
 import upload from '../utils/upload.js';
 
-router.route('/').get(PhotoStory.list).post(upload.any(), PhotoStory.uploads);
+router.route('/').get(PhotoStory.list).post(upload.any(), PhotoStory.newPhotoStory);
 
 export default router;

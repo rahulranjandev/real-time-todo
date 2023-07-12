@@ -89,4 +89,48 @@ const uploads = async (req, res) => {
   }
 };
 
-export default { list, uploads };
+const newPhotoStory = async (req, res) => {
+  try {
+    const files = req.files;
+    const containerName = 'images';
+
+    const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
+
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+
+    await containerClient.createIfNotExists();
+
+    const imageUrls = [];
+
+    const uploadPromises = files.map(async (file) => {
+      const blobName = file.originalname;
+
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+      await blockBlobClient.upload(file.buffer, file.size);
+
+      const url = blockBlobClient.url;
+
+      imageUrls.push(url);
+    });
+
+    await Promise.all(uploadPromises);
+
+    const payload = {
+      caption: req.body.caption,
+      user: res.locals.user.id,
+      imageUrls: imageUrls,
+    };
+
+    const post = await this.postService.createPost(payload);
+
+    res.status(201).json({
+      status: 'success',
+      data: post,
+    });
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+    console.error(err.message);
+  }
+};
+export default { list, uploads, newPhotoStory };

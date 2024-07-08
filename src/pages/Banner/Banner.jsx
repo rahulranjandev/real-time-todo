@@ -34,6 +34,7 @@ function Banner() {
       .then((res) => {
         console.log(res);
 
+        // eslint-disable-next-line no-unused-vars
         const resp = res.data;
 
         asyncGetBanners();

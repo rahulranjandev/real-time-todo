@@ -1,25 +1,19 @@
 import axios from 'axios';
 
-const host = process.env.REACT_APP_API_HOST;
+const host = import.meta.env.VITE_API_HOST;
 
 const instance = axios.create({
   baseURL: host,
-  // timeout: 1000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-export const getBanners = () => {
-  const endpoint = '/photostory';
-  return instance.get(endpoint);
-};
+export const getBanners = () => instance.get('/photostory');
 
-export const updateBanner = (data) => {
-  const endpoint = `${host}/photostory`;
-  return axios.post(endpoint, data, {
+export const updateBanner = (data) =>
+  instance.post('/photostory', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-};

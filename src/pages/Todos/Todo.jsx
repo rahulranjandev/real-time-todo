@@ -6,7 +6,7 @@ import { Container, Segment, Divider, Header, Button } from 'semantic-ui-react';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 
-const host = process.env.REACT_APP_SOCKET_HOST;
+const host = import.meta.env.VITE_SOCKET_HOST;
 
 const socket = io(host);
 

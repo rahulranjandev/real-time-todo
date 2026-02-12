@@ -1,19 +1,21 @@
-FROM node:16-alpine
+FROM node:22-alpine AS deps
 
-RUN apk add --update nodejs
-# Create app directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install app dependencies
-# RUN npm install
-# If you are building your code for production
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
-# Bundle app source
-COPY . /app
+FROM node:22-alpine AS runner
 
+WORKDIR /app
 
-CMD [ "node", "src/app.js" ]
+ENV NODE_ENV=production
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "src/app.js"]
